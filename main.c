@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <getopt.h>
 
 #include "datastructs.h"
 #include "indices.h"

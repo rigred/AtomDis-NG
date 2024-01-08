@@ -24,13 +24,13 @@ const char *index_command_table[] = {
     "VRAM_BlockVenderDetection", "SetClocksRatio/DIGxEncoderControl", "MemoryControllerInit",
     "EnableCRTCMemReq", "MemoryParamAdjust", "DVOEncoderControl",
     "GPIOPinControl", "SetEngineClock", "SetMemoryClock",
-    "SetPixelClock", "DynamicClockGating", "ResetMemoryDLL",
+    "SetPixelClock", "DynamicClockGating/EnableDispPowerGating", "ResetMemoryDLL",
     "ResetMemoryDevice", "MemoryPLLInit", "AdjustDisplayPll",
     "AdjustMemoryController", "EnableASIC_StaticPwrMgt", "ASIC_StaticPwrMgtStatusChange/SetUniphyInstance",
-    "DAC_LoadDetection", "LVTMAEncoderControl", "LCD1OutputControl",
+    "DAC_LoadDetection", "LVTMAEncoderControl", "LCD1OutputControl/HW_Misc_Operation",
     "DAC1EncoderControl", "DAC2EncoderControl", "DVOOutputControl",
     "CV1OutputControl", "GetConditionalGoldenSetting/SetCRTC_DPM_State", "TVEncoderControl",
-    "TMDSAEncoderControl", "LVDSEncoderControl", "TV1OutputControl",
+    "TMDSAEncoderControl/PatchMCSetting", "LVDSEncoderControl/MC_SEQ_Control", "TV1OutputControl/Gfx_Harvesting",
     "EnableScaler", "BlankCRTC", "EnableCRTC",
     "GetPixelClock", "EnableVGA_Render", "EnableVGA_Access/GetSCLKOverMCLKRatio",
     "SetCRTC_Timing", "SetCRTC_OverScan", "SetCRTC_Replication",
@@ -44,17 +44,17 @@ const char *index_command_table[] = {
     "ComputeMemoryEnginePLL", "MemoryRefreshConversion", "VRAM_GetCurrentInfoBlock",
     "DynamicMemorySettings", "MemoryTraining", "EnableSpreadSpectrumOnPPLL",
     "TMDSAOutputControl", "SetVoltage", "DAC1OutputControl",
-    "DAC2OutputControl", "SetupHWAssistedI2CStatus", "ClockSource",
-    "MemoryDeviceInit", "EnableYUV", "DIG1EncoderControl",
-    "DIG2EncoderControl", "DIG1TransmitterControl/UNIPHYTransmitterControl",
+    "DAC2OutputControl", "SetupHWAssistedI2CStatus/ComputeMemoryClockParam", "ClockSource",
+    "MemoryDeviceInit", "EnableYUV/GetDispObjectInfo", "DIG1EncoderControl",
+    "DIG2EncoderControl/DPTranslatorControl", "DIG1TransmitterControl/UNIPHYTransmitterControl",
     "DIG2TransmitterControl/LVTMATransmitterControl",
-    "ProcessAuxChannelTransaction", "DPEncoderService"
+    "ProcessAuxChannelTransaction", "DPEncoderService", "GetVoltageInfo"
 } ;
 
 const char *index_data_table[] = {
     "UtilityPipeLine", "MultimediaCapabilityInfo", "MultimediaConfigInfo",
-    "StandardVESA_Timing", "FirmwareInfo", "DAC_Info",
-    "LVDS_Info", "TMDS_Info", "AnalogTV_Info",
+    "StandardVESA_Timing", "FirmwareInfo", "DAC_Info/PaletteData",
+    "LVDS_Info/LCD_Info", "TMDS_Info/DIGTransmitterInfo", "AnalogTV_Info",
     "SupportedDevicesInfo", "GPIO_I2C_Info", "VRAM_UsageByFirmware",
     "GPIO_Pin_LUT", "VESA_ToInternalModeLUT", "ComponentVideoInfo",
     "PowerPlayInfo", "CompassionateData", "SaveRestoreInfo/DispDevicePriorityInfo",
@@ -69,7 +69,7 @@ const char *index_data_table[] = {
 
 
 const char *index_ati_port[] = {
-    "INDIRECT_IO_MM", "INDIRECT_IO_PLL", "INDIRECT_IO_MC", "INDIRECT_IO_PCIE"
+    "INDIRECT_IO_MM", "INDIRECT_IO_PLL", "INDIRECT_IO_MC", "INDIRECT_IO_PCIE",
 } ;
 
 const char *index_work_reg[] = {

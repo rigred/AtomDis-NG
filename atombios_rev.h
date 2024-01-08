@@ -74,6 +74,15 @@ typedef struct
 // Needs more love
 #pragma return ATOM_VRAM_INFO_V3             -                        0
 
+#pragma offset ATOM_VRAM_INFO_HEADER_V2_1             aVramInfo                *(offset_ATOM_VRAM_INFO_HEADER_V2_1_aVramInfo(d,i))
+#pragma count  ATOM_VRAM_INFO_HEADER_V2_1             aVramInfo                (count_ATOM_VRAM_INFO_HEADER_V2_1_aVramInfo(d))
+#pragma offset ATOM_VRAM_INFO_HEADER_V2_1             asMemPatch               *(data + d->usMemClkPatchTblOffset)
+#pragma offset ATOM_VRAM_INFO_HEADER_V2_1             asPreset                 *(data + d->usPerBytePresetOffset)
+
+// Needs more love
+#pragma count ATOM_VRAM_MODULE_V7             strMemPNString              (count_STR_MEM_PN_STRING(d))
+
+
 // Doesn't look completely reasonable, but seems ok...
 #pragma count  ATOM_ASIC_PROFILE_VOLTAGE     asLeakVol                ((d->usSize - offsetof(ATOM_ASIC_PROFILE_VOLTAGE,asLeakVol)) / sizeof(ATOM_LEAKID_VOLTAGE))
 
@@ -105,6 +114,34 @@ static inline int count_ATOM_VRAM_INFO_V3_aVramInfo(ATOM_VRAM_INFO_V3 *d) {
     }
     return i;
 }
+
+static inline char *offset_ATOM_VRAM_INFO_HEADER_V2_1_aVramInfo(ATOM_VRAM_INFO_HEADER_V2_1 *d, int i) {
+    char *r = (char *)&d->aVramInfo[0];
+    while (i-- > 0)
+	r += ((ATOM_VRAM_MODULE_V7 *)r)->usModuleSize;
+    return r;
+}
+
+static inline int count_ATOM_VRAM_INFO_HEADER_V2_1_aVramInfo(ATOM_VRAM_INFO_HEADER_V2_1 *d) {
+    int i=0;
+    char *last = 0, *next;
+    while ( (next = offset_ATOM_VRAM_INFO_HEADER_V2_1_aVramInfo(d,i)) - (char*)d < d->usMemAdjustTblOffset && next != last) {
+	last = next;
+	i++;
+    }
+    return i;
+}
+
+static inline int count_STR_MEM_PN_STRING(ATOM_VRAM_MODULE_V7 *d) {
+    int i = 0;
+    while (i < 20 && d->strMemPNString[i] != '\0') {
+        i++;
+    }
+    return i+1;
+}
+
+
+
 static inline char *offset_ATOM_VOLTAGE_OBJECT_INFO_asVoltageObj(ATOM_VOLTAGE_OBJECT_INFO *d, int i) {
     char *r = (char *)&d->asVoltageObj[0];
     while (i-- > 0)
